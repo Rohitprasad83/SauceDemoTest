@@ -14,7 +14,7 @@ public class LoginTests {
         wd.get("https://www.saucedemo.com/");
     }
     @Test
-    public void checkUrl(){
+    public void checkTitle(){
         String url = wd.getTitle();
         Assert.assertEquals(url, "Swag Labs", "Incorrect Title");
     }
