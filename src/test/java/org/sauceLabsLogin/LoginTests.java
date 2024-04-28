@@ -13,7 +13,7 @@ public class LoginTests {
     private LoginPage loginPage;
 
 
-    @BeforeSuite
+    @BeforeClass
     public void setup(){
         LoggerLoad.info("Initializing ChromeDriver");
         driver = new ChromeDriver();
@@ -53,7 +53,7 @@ public class LoginTests {
         Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html", "Login failed");
     }
 
-    @AfterSuite
+    @AfterClass
     public void tearDown(){
         driver.quit();
     }
