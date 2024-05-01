@@ -32,6 +32,24 @@ public class InventoryPage {
     @FindBy(xpath = "//*[@data-test='shopping-cart-badge']")
     private WebElement cartItemsCount;
 
+    @FindBy(id = "react-burger-menu-btn")
+    private WebElement sidebarBtn;
+
+    @FindBy(id = "react-burger-close-btn")
+    private WebElement closeSidebarBtn;
+
+    @FindBy(xpath = "//*[@data-test='inventory-sidebar-link']")
+    private WebElement inventorySidebarBtn;
+
+    @FindBy(xpath = "//*[@data-test='about-sidebar-link']")
+    private WebElement aboutSidebarBtn;
+
+    @FindBy(xpath = "//*[@data-test='logout-sidebar-link']")
+    private WebElement logoutSidebarBtn;
+
+    @FindBy(xpath = "//*[@data-test='reset-sidebar-link']")
+    private WebElement resetSidebarBtn;
+
     public InventoryPage(WebDriver wd){
         this.wd = wd;
         PageFactory.initElements(wd, this);
@@ -78,5 +96,33 @@ public class InventoryPage {
     public String cartItems(){
         return cartItemsCount.getText();
     }
+    
+    public InventoryPage openSidebar(){
+        sidebarBtn.click();
+        return this;
+    }
+
+    public InventoryPage closeSidebar(){
+        closeSidebarBtn.click();
+        return this;
+    }
+    public InventoryPage allItemsPage(){
+        inventorySidebarBtn.click();
+        return this;
+    }
+
+    public InventoryPage aboutPage(){
+        aboutSidebarBtn.click();
+        return this;
+    }
+    public InventoryPage logout(){
+        logoutSidebarBtn.click();
+        return this;
+    }
+    public InventoryPage resetApp(){
+        resetSidebarBtn.click();
+        return this;
+    }
+    
 
 }
