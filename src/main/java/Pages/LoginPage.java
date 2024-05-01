@@ -1,18 +1,13 @@
 package Pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginPage {
-    private WebDriver wd;
-    private WebDriverWait wait;
+public class LoginPage extends BasePage{
     @FindBy(id = "user-name")
     private WebElement usernameInput;
 
@@ -26,12 +21,8 @@ public class LoginPage {
     private WebElement errorText;
 
     public LoginPage(WebDriver wd){
-        this.wd = wd;
+        super(wd);
         PageFactory.initElements(wd, this);
-    }
-
-    public String getUrl(){
-        return wd.getCurrentUrl();
     }
 
     public LoginPage setUserName(String username){
@@ -46,8 +37,7 @@ public class LoginPage {
     }
 
     public String loginError() throws InterruptedException {
-        wait = new WebDriverWait(wd, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@data-test='error']")));
+        waitForElementToBeVisible(errorText);
         return errorText.getText();
     }
     public void clickSubmit(){
