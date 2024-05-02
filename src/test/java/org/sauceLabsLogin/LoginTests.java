@@ -3,20 +3,12 @@ package org.sauceLabsLogin;
 import java.lang.*;
 
 import Pages.LoginPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import utilities.LoggerLoad;
-public class LoginTests {
-    private WebDriver driver;
+public class LoginTests extends BaseTest{
     private LoginPage loginPage;
-
-
     @BeforeClass
-    public void setup(){
-        LoggerLoad.info("Initializing ChromeDriver");
-        driver = new ChromeDriver();
+    public void intializingPages(){
         loginPage = new LoginPage(driver);
     }
 
@@ -50,10 +42,5 @@ public class LoginTests {
 
         String url = driver.getCurrentUrl();
         Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");
-    }
-
-    @AfterClass
-    public void tearDown(){
-        driver.quit();
     }
 }

@@ -2,25 +2,21 @@ package org.sauceLabsLogin;
 
 import Pages.InventoryPage;
 import Pages.LoginPage;
+import Pages.SideBar;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import utilities.LoggerLoad;
 
-public class InventoryTests {
 
-    private WebDriver driver;
+public class InventoryTests extends BaseTest {
     private InventoryPage inventoryPage;
     private LoginPage loginPage;
+    private SideBar sideBar;
     @BeforeClass
-    public void setup(){
-        LoggerLoad.info("Initializing ChromeDriver");
-        driver = new ChromeDriver();
+    public void initializingPages(){
         loginPage = new LoginPage(driver);
         inventoryPage = new InventoryPage(driver);
-
+        sideBar = new SideBar(driver);
     }
 
     @BeforeMethod
@@ -56,17 +52,14 @@ public class InventoryTests {
 
     @Test
     public void openProductDetails(){
-
         try{
             inventoryPage.openProductPage("Sauce Labs Bike Light");
         }
         catch (StaleElementReferenceException ignored){
         }
     }
-
-
-//    @AfterClass
-//    public void tearDown(){
-//        driver.quit();
+//    @Afte
+//    public void logout(){
+//        sideBar.openSidebar().logout();
 //    }
 }
