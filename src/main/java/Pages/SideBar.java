@@ -27,6 +27,7 @@ public class SideBar extends BasePage {
     }
 
     public SideBar openSidebar(){
+        waitForElementToBeClickable(sidebarBtn);
         sidebarBtn.click();
         return this;
     }
@@ -45,6 +46,7 @@ public class SideBar extends BasePage {
         return this;
     }
     public SideBar logout(){
+        waitForElementToBeClickable(logoutSidebarBtn);
         logoutSidebarBtn.click();
         return this;
     }
