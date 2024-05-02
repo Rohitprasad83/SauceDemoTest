@@ -58,8 +58,8 @@ public class InventoryTests extends BaseTest {
         catch (StaleElementReferenceException ignored){
         }
     }
-//    @Afte
-//    public void logout(){
-//        sideBar.openSidebar().logout();
-//    }
+    @AfterMethod
+    public void logout(){
+        sideBar.openSidebar().logout();
+    }
 }
