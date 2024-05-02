@@ -3,9 +3,6 @@ package Pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import java.time.Duration;
 
 public class LoginPage extends BasePage{
     @FindBy(id = "user-name")
@@ -20,9 +17,8 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//h3[@data-test='error']")
     private WebElement errorText;
 
-    public LoginPage(WebDriver wd){
-        super(wd);
-        PageFactory.initElements(wd, this);
+    public LoginPage(WebDriver driver){
+        super(driver);
     }
 
     public LoginPage setUserName(String username){
