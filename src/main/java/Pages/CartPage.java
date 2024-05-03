@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +22,17 @@ public class CartPage extends BasePage {
 
     public CartPage(WebDriver wd){
         super(wd);
+    }
+
+    public CartPage removeItem(String productName){
+        for(WebElement el: cartItems) {
+            if(el.getText().contains(productName)){
+                String id = "remove-"+productName.toLowerCase().replace(" ", "-");
+                WebElement removeFromCart = driver.findElement(By.id(id));
+                removeFromCart.click();
+            }
+        }
+        return this;
     }
 
     public CartPage removeAllItemsFromCart(){
