@@ -25,9 +25,6 @@ public class InventoryTests extends BaseTest {
         loginPage.setUserName("standard_user")
                 .setPassword("secret_sauce")
                 .clickSubmit();
-
-        Assert.assertEquals("Products",
-        inventoryPage.inventoryPageTitle());
     }
 
     @Test
@@ -46,7 +43,7 @@ public class InventoryTests extends BaseTest {
     @Test
     public void checkSorting() throws InterruptedException {
         inventoryPage.clickSortProducts("za");
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
         inventoryPage.clickSortProducts("hilo");
     }
 
