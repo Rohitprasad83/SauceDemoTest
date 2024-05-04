@@ -33,7 +33,8 @@ public class CartTests extends BaseTest {
     @Test
     public void removeProductFromCart() throws InterruptedException {
         String productName = "Sauce Labs Bike Light";
-        inventoryPage.addProductToCart(productName).clickOnCart();
+        inventoryPage.addProductToCart(productName);
+        sideBar.clickOnCart();
         cartPage.removeItem(productName);
     }
 
@@ -46,7 +47,7 @@ public class CartTests extends BaseTest {
                 .addProductToCart("Sauce Labs Onesie")
                 .addProductToCart("Test.allTheThings() T-Shirt (Red)");
 
-        inventoryPage.clickOnCart();
+        sideBar.clickOnCart();
         cartPage.removeAllItemsFromCart();
     }
 

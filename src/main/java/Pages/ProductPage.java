@@ -24,7 +24,9 @@ public class ProductPage extends BasePage {
     private WebElement productsPageBtn;
 
     public ProductPage(WebDriver driver){
-        super(driver);
+        super(driver
+
+        );
     }
 
     public String getProductTitle(){
@@ -40,6 +42,7 @@ public class ProductPage extends BasePage {
     }
 
     public ProductPage addProductToCart(){
+        waitForElementToBeClickable(addToCartBtn);
         addToCartBtn.click();
         return this;
     }

@@ -22,8 +22,7 @@ public class InventoryPage extends BasePage {
     @FindBy(xpath = "//*[@data-test='shopping-cart-badge']")
     private WebElement cartItemsCount;
 
-    @FindBy(xpath = "//*[@data-test='shopping-cart-link']")
-    private WebElement cartBtn;
+
 
     public InventoryPage(WebDriver driver){
         super(driver);
@@ -63,11 +62,7 @@ public class InventoryPage extends BasePage {
         return this;
     }
 
-    public InventoryPage clickOnCart(){
-        waitForElementToBeClickable(cartBtn);
-        cartBtn.click();
-        return this;
-    }
+
     public String cartItems(){
         return cartItemsCount.getText();
     }

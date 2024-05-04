@@ -22,6 +22,9 @@ public class SideBar extends BasePage {
 
     @FindBy(xpath = "//*[@data-test='reset-sidebar-link']")
     private WebElement resetSidebarBtn;
+
+    @FindBy(xpath = "//*[@data-test='shopping-cart-link']")
+    private WebElement cartBtn;
     public SideBar(WebDriver driver){
         super(driver);
     }
@@ -52,6 +55,12 @@ public class SideBar extends BasePage {
     }
     public SideBar resetApp() {
         resetSidebarBtn.click();
+        return this;
+    }
+
+    public SideBar clickOnCart(){
+        waitForElementToBeClickable(cartBtn);
+        cartBtn.click();
         return this;
     }
 }

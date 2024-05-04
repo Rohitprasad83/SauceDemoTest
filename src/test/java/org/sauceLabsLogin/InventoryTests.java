@@ -43,7 +43,7 @@ public class InventoryTests extends BaseTest {
     @Test
     public void checkSorting() throws InterruptedException {
         inventoryPage.clickSortProducts("za");
-//        Thread.sleep(3000);
+        Thread.sleep(2000);
         inventoryPage.clickSortProducts("hilo");
     }
 
