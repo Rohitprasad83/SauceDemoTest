@@ -3,31 +3,23 @@ package org.sauceLabsLogin;
 import java.lang.*;
 
 import Pages.LoginPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import utilities.LoggerLoad;
-public class LoginTests {
-    private WebDriver driver;
+public class LoginTests extends BaseTest{
     private LoginPage loginPage;
-
-
     @BeforeClass
-    public void setup(){
-        LoggerLoad.info("Initializing ChromeDriver");
-        driver = new ChromeDriver();
+    public void intializingPages(){
         loginPage = new LoginPage(driver);
     }
 
     @BeforeMethod
     public void visitPage(){
-        driver.get("https://www.saucedemo.com/");
+        loginPage.navigateTo("https://www.saucedemo.com/");
     }
 
     @Test
     public void checkTitle(){
-        String url = driver.getTitle();
+        String url = loginPage.getPageTitle();
         Assert.assertEquals(url, "Swag Labs", "Incorrect Title");
     }
 
@@ -37,7 +29,6 @@ public class LoginTests {
                 .setPassword("1234")
                 .clickSubmit();
 
-        Assert.assertEquals(loginPage.getUrl(), "https://www.saucedemo.com/");
         String errorMessage = loginPage.loginError();
         Assert.assertEquals(errorMessage, "Epic sadface: Username and password do not match any user in this service");
     }
@@ -49,12 +40,7 @@ public class LoginTests {
                 .setPassword("secret_sauce")
                 .clickSubmit();
 
-        String url = loginPage.getUrl();
-        Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html", "Login failed");
-    }
-
-    @AfterClass
-    public void tearDown(){
-        driver.quit();
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");
     }
 }

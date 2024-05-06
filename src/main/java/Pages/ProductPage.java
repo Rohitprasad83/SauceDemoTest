@@ -3,12 +3,8 @@ package Pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class ProductPage {
-
-    private WebDriver wd;
-
+public class ProductPage extends BasePage {
     @FindBy(xpath = "//*[@data-test='inventory-item-name']")
     private WebElement productTitle;
 
@@ -27,9 +23,10 @@ public class ProductPage {
     @FindBy(xpath = "//*[@data-test='back-to-products']")
     private WebElement productsPageBtn;
 
-    public ProductPage(WebDriver wd){
-        this.wd = wd;
-        PageFactory.initElements(wd, this);
+    public ProductPage(WebDriver driver){
+        super(driver
+
+        );
     }
 
     public String getProductTitle(){
@@ -45,6 +42,7 @@ public class ProductPage {
     }
 
     public ProductPage addProductToCart(){
+        waitForElementToBeClickable(addToCartBtn);
         addToCartBtn.click();
         return this;
     }

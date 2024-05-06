@@ -3,19 +3,23 @@ package org.sauceLabsLogin;
 import Pages.InventoryPage;
 import Pages.LoginPage;
 import Pages.SideBar;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import Pages.CartPage;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-
-public class InventoryTests extends BaseTest {
+public class CartTests extends BaseTest {
     private InventoryPage inventoryPage;
     private LoginPage loginPage;
+
+    private CartPage cartPage;
     private SideBar sideBar;
     @BeforeClass
     public void initializingPages(){
         loginPage = new LoginPage(driver);
         inventoryPage = new InventoryPage(driver);
+        cartPage = new CartPage(driver);
         sideBar = new SideBar(driver);
     }
 
@@ -26,9 +30,16 @@ public class InventoryTests extends BaseTest {
                 .setPassword("secret_sauce")
                 .clickSubmit();
     }
+    @Test
+    public void removeProductFromCart() throws InterruptedException {
+        String productName = "Sauce Labs Bike Light";
+        inventoryPage.addProductToCart(productName);
+        sideBar.clickOnCart();
+        cartPage.removeItem(productName);
+    }
 
     @Test(priority = 1)
-    public void addProductToCart() {
+    public void removeAllProductsFromCart() throws InterruptedException {
         inventoryPage.addProductToCart("Sauce Labs Backpack")
                 .addProductToCart("Sauce Labs Bike Light")
                 .addProductToCart("Sauce Labs Bolt T-Shirt")
@@ -36,27 +47,12 @@ public class InventoryTests extends BaseTest {
                 .addProductToCart("Sauce Labs Onesie")
                 .addProductToCart("Test.allTheThings() T-Shirt (Red)");
 
-        int countItemsInCart =Integer.parseInt(inventoryPage.cartItems());
-        Assert.assertEquals(6, countItemsInCart);
+        sideBar.clickOnCart();
+        cartPage.removeAllItemsFromCart();
     }
 
-    @Test
-    public void checkSorting() throws InterruptedException {
-        inventoryPage.clickSortProducts("za");
-        Thread.sleep(2000);
-        inventoryPage.clickSortProducts("hilo");
-    }
-
-    @Test
-    public void openProductDetails(){
-        try{
-            inventoryPage.openProductPage("Sauce Labs Bike Light");
-        }
-        catch (StaleElementReferenceException ignored){
-        }
-    }
     @AfterMethod
     public void logout(){
-        sideBar.openSidebar().resetApp().logout();
+        sideBar.openSidebar().logout();
     }
 }

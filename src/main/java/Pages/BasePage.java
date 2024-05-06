@@ -28,9 +28,12 @@ public class BasePage {
     }
 
     public void waitForElementToBeClickable(WebElement element){
-        wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    public void waitForElementToBeVisible(WebElement element){
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
     public void waitForElementToHaveText(WebElement element, String text) {
         wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
