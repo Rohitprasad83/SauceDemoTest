@@ -36,15 +36,18 @@ public class SideBar extends BasePage {
     }
 
     public SideBar closeSidebar(){
+        waitForElementToBeClickable(closeSidebarBtn);
         closeSidebarBtn.click();
         return this;
     }
     public SideBar allItemsPage(){
+        waitForElementToBeClickable(inventorySidebarBtn);
         inventorySidebarBtn.click();
         return this;
     }
 
     public SideBar aboutPage(){
+        waitForElementToBeClickable(aboutSidebarBtn);
         aboutSidebarBtn.click();
         return this;
     }
@@ -54,6 +57,7 @@ public class SideBar extends BasePage {
         return this;
     }
     public SideBar resetApp() {
+        waitForElementToBeClickable(resetSidebarBtn);
         resetSidebarBtn.click();
         return this;
     }
