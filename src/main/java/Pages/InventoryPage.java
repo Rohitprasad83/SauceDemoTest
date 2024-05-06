@@ -47,7 +47,7 @@ public class InventoryPage extends BasePage {
     }
 
     public InventoryPage clickSortProducts(String sortBy) throws InterruptedException {
-        waitForElementToBeVisible(sortDropDown);
+        waitForElementToBeClickable(sortDropDown);
         Select sortProducts = new Select(sortDropDown);
 
         sortProducts.selectByValue(sortBy);

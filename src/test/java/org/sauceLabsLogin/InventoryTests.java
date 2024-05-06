@@ -27,7 +27,7 @@ public class InventoryTests extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(priority = 1)
     public void addProductToCart() {
         inventoryPage.addProductToCart("Sauce Labs Backpack")
                 .addProductToCart("Sauce Labs Bike Light")
@@ -57,6 +57,6 @@ public class InventoryTests extends BaseTest {
     }
     @AfterMethod
     public void logout(){
-        sideBar.openSidebar().logout();
+        sideBar.openSidebar().resetApp().logout();
     }
 }
