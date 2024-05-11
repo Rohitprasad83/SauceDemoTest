@@ -18,8 +18,7 @@ public class LoginTests extends BaseTest{
     private LoginPage loginPage;
     private SideBar sideBar;
     @BeforeClass
-    public void intializingPages(){
-
+    public void initializingPages(){
         loginPage = new LoginPage(driver);
         sideBar = new SideBar(driver);
     }
@@ -36,6 +35,17 @@ public class LoginTests extends BaseTest{
     }
 
     @Test
+    public void testSuccessfulLogin(){
+
+        loginPage.setUserName("standard_user")
+                .setPassword("secret_sauce")
+                .clickSubmit();
+
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");
+    }
+
+    @Test
     public void unsuccessfulLoginIncorrectPassword() throws InterruptedException {
         loginPage.setUserName("standard_user")
                 .setPassword("1234")
@@ -46,14 +56,52 @@ public class LoginTests extends BaseTest{
     }
 
     @Test
-    public void testSuccessfulLogin(){
-        
-        loginPage.setUserName("standard_user")
+    public void unsuccessfulLoginIncorrectUsername() throws InterruptedException {
+        loginPage.setUserName("abcasmf")
                 .setPassword("secret_sauce")
                 .clickSubmit();
 
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");
+        String errorMessage = loginPage.loginError();
+        Assert.assertEquals(errorMessage, "Epic sadface: Username and password do not match any user in this service");
+    }
+    @Test
+    public void unsuccessfulLoginIncorrectUsernameAndPassword() throws InterruptedException {
+        loginPage.setUserName("abcasmf")
+                .setPassword("1234")
+                .clickSubmit();
+
+        String errorMessage = loginPage.loginError();
+        Assert.assertEquals(errorMessage, "Epic sadface: Username and password do not match any user in this service");
+    }
+
+    @Test
+    public void unsuccessfulLoginOnBlankUsername() throws InterruptedException {
+        loginPage.setUserName("")
+                .setPassword("1234")
+                .clickSubmit();
+
+        String errorMessage = loginPage.loginError();
+        Assert.assertEquals(errorMessage, "Epic sadface: Username is required");
+    }
+
+    @Test
+    public void unsuccessfulLoginOnBlankPassword() throws InterruptedException {
+        loginPage.setUserName("standard_user")
+                .setPassword("")
+                .clickSubmit();
+
+        String errorMessage = loginPage.loginError();
+        Assert.assertEquals(errorMessage, "Epic sadface: Password is required");
+    }
+
+    @Test
+    public void lockedOutUserLogin() throws InterruptedException {
+        loginPage.setUserName("locked_out_user")
+                .setPassword("secret_sauce")
+                .clickSubmit();
+
+        String errorMessage = loginPage.loginError();
+        Assert.assertEquals(errorMessage, "Epic sadface: Sorry, this user has been locked out.");
     }
 
     @Test(dataProvider = "loginData", dataProviderClass = DataProviderUtils.class)
