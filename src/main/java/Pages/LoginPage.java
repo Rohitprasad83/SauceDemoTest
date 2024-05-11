@@ -22,11 +22,13 @@ public class LoginPage extends BasePage{
     }
 
     public LoginPage setUserName(String username){
+        waitForElementToBeVisible(usernameInput);
         usernameInput.clear();
         usernameInput.sendKeys(username);
         return this;
     }
     public LoginPage setPassword(String password){
+        waitForElementToBeVisible(passwordInput);
         passwordInput.clear();
         passwordInput.sendKeys(password);
         return this;
@@ -37,6 +39,7 @@ public class LoginPage extends BasePage{
         return errorText.getText();
     }
     public void clickSubmit(){
+        waitForElementToBeClickable(submitBtn);
         submitBtn.click();
     }
 

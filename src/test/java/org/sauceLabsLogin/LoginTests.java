@@ -1,15 +1,27 @@
 package org.sauceLabsLogin;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import Pages.LoginPage;
+import Pages.SideBar;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import utilities.DataProviderUtils;
+import utilities.ExcelReader;
+import utilities.LoggerLoad;
+
 public class LoginTests extends BaseTest{
     private LoginPage loginPage;
+    private SideBar sideBar;
     @BeforeClass
     public void intializingPages(){
+
         loginPage = new LoginPage(driver);
+        sideBar = new SideBar(driver);
     }
 
     @BeforeMethod
@@ -42,5 +54,17 @@ public class LoginTests extends BaseTest{
 
         String url = driver.getCurrentUrl();
         Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");
+    }
+
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUtils.class)
+    public void testFromExcel(String username, String password, String expectedResults) throws InterruptedException {
+        loginPage.login(username, password);
+
+        if (expectedResults.equalsIgnoreCase("Epic sadface: Sorry, this user has been locked out.")) {
+            Assert.assertEquals(loginPage.loginError(), expectedResults);
+        } else {
+            Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
+            sideBar.openSidebar().logout();
+        }
     }
 }
