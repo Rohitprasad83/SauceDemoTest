@@ -11,12 +11,12 @@ import java.util.List;
 
 public class ExcelReader {
 
-        public List<List<String>> readExcel(String filePath) throws IOException {
+        public List<List<String>> readExcel(String filePath, String sheetName) throws IOException {
             List<List<String>> data = new ArrayList<>();
 
             FileInputStream file = new FileInputStream(new File(filePath));
             Workbook workbook = new XSSFWorkbook(file);
-            Sheet sheet = workbook.getSheet("Sheet1");
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row row : sheet) {
                 List<String> rowData = new ArrayList<>();
@@ -30,5 +30,5 @@ public class ExcelReader {
             file.close();
             return data;
         }
-    }
+}
 
