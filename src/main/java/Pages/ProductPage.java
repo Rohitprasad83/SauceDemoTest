@@ -24,20 +24,21 @@ public class ProductPage extends BasePage {
     private WebElement productsPageBtn;
 
     public ProductPage(WebDriver driver){
-        super(driver
-
-        );
+        super(driver);
     }
 
     public String getProductTitle(){
+        waitForElementToBeVisible(productTitle);
         return productTitle.getText();
     }
 
     public String getProductDescription(){
+        waitForElementToBeVisible(productDescription);
         return productDescription.getText();
     }
 
     public String getProductPrice(){
+        waitForElementToBeVisible(productPrice);
         return productPrice.getText();
     }
 
