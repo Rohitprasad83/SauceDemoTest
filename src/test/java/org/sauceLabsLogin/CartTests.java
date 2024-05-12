@@ -4,6 +4,7 @@ import Pages.InventoryPage;
 import Pages.LoginPage;
 import Pages.SideBar;
 import Pages.CartPage;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +13,6 @@ import org.testng.annotations.Test;
 public class CartTests extends BaseTest {
     private InventoryPage inventoryPage;
     private LoginPage loginPage;
-
     private CartPage cartPage;
     private SideBar sideBar;
     @BeforeClass
@@ -49,6 +49,20 @@ public class CartTests extends BaseTest {
 
         sideBar.clickOnCart();
         cartPage.removeAllItemsFromCart();
+    }
+
+    @Test
+    public void checkContinueShopping(){
+        sideBar.clickOnCart();
+        cartPage.backToProductsPage();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
+    }
+
+    @Test
+    public void checkCheckout(){
+        sideBar.clickOnCart();
+        cartPage.checkout();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-step-one.html");
     }
 
     @AfterMethod
