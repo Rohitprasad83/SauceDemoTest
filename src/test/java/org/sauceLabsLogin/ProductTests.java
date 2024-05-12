@@ -1,10 +1,10 @@
 package org.sauceLabsLogin;
 
 import Pages.*;
+import junit.framework.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+import utilities.DataProviderUtils;
 
 public class ProductTests extends BaseTest {
     private LoginPage loginPage;
@@ -37,6 +37,38 @@ public class ProductTests extends BaseTest {
         catch (StaleElementReferenceException ignored){
         }
         productPage.addProductToCart();
-        sideBar.clickOnCart();
+        int cartCount = Integer.parseInt(sideBar.cartItems());
+        Assert.assertEquals(1,cartCount);
+    }
+
+    @Test
+    public void checkProductTitle(){
+        try{
+            inventoryPage.openProductPage("Sauce Labs Bolt T-Shirt");
+        }
+        catch (StaleElementReferenceException ignored){
+        }
+
+        String ProductTitle = productPage.getProductTitle();
+
+        Assert.assertEquals("Sauce Labs Bolt T-Shirt",ProductTitle);
+    }
+
+    @Test(dataProvider = "productData", dataProviderClass = DataProviderUtils.class)
+    public void testAllProductDetails(String productName, String productDesc, String productPrice){
+        try{
+            inventoryPage.openProductPage(productName);
+        }
+        catch (StaleElementReferenceException ignored){
+        }
+        Assert.assertEquals(productPage.getProductTitle(), productName);
+        Assert.assertEquals(productPage.getProductDescription(), productDesc);
+        Assert.assertEquals(productPage.getProductPrice(), productPrice);
+
+        productPage.navigateToProducts();
+    }
+    @AfterMethod
+    public void clearTest(){
+        sideBar.openSidebar().resetApp().logout();
     }
 }

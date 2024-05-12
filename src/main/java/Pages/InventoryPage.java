@@ -19,8 +19,7 @@ public class InventoryPage extends BasePage {
     @FindBy(xpath = "//select[@data-test='product-sort-container']")
     private WebElement sortDropDown;
 
-    @FindBy(xpath = "//*[@data-test='shopping-cart-badge']")
-    private WebElement cartItemsCount;
+
 
 
 
@@ -63,7 +62,5 @@ public class InventoryPage extends BasePage {
     }
 
 
-    public String cartItems(){
-        return cartItemsCount.getText();
-    }
+
 }

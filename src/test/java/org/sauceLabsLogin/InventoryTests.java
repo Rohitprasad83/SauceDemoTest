@@ -36,7 +36,7 @@ public class InventoryTests extends BaseTest {
                 .addProductToCart("Sauce Labs Onesie")
                 .addProductToCart("Test.allTheThings() T-Shirt (Red)");
 
-        int countItemsInCart =Integer.parseInt(inventoryPage.cartItems());
+        int countItemsInCart =Integer.parseInt(sideBar.cartItems());
         Assert.assertEquals(6, countItemsInCart);
     }
 

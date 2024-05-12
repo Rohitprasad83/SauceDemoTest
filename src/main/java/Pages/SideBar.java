@@ -25,6 +25,9 @@ public class SideBar extends BasePage {
 
     @FindBy(xpath = "//*[@data-test='shopping-cart-link']")
     private WebElement cartBtn;
+
+    @FindBy(xpath = "//*[@data-test='shopping-cart-badge']")
+    private WebElement cartItemsCount;
     public SideBar(WebDriver driver){
         super(driver);
     }
@@ -66,5 +69,9 @@ public class SideBar extends BasePage {
         waitForElementToBeClickable(cartBtn);
         cartBtn.click();
         return this;
+    }
+
+    public String cartItems(){
+        return cartItemsCount.getText();
     }
 }
