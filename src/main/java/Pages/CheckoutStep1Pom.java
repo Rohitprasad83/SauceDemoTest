@@ -21,6 +21,9 @@ public class CheckoutStep1Pom extends BasePage {
     @FindBy(id = "continue")
     private WebElement continueShopping;
 
+    @FindBy(xpath = "//*[@data-test='error']")
+    private WebElement error;
+
     public CheckoutStep1Pom(WebDriver driver){
         super(driver);
     }
@@ -51,6 +54,11 @@ public class CheckoutStep1Pom extends BasePage {
     public void clickContinueShopping(){
         waitForElementToBeClickable(continueShopping);
         continueShopping.click();
+    }
+
+    public String errorText(){
+        waitForElementToBeVisible(error);
+        return error.getText();
     }
 
 }
