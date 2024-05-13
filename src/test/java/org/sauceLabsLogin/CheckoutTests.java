@@ -101,7 +101,11 @@ public class CheckoutTests extends BaseTest{
 
     @Test
     public void E2ETest() throws IOException, InterruptedException {
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
+        inventoryPage.addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bike Light")
+                .addProductToCart("Sauce Labs Bolt T-Shirt")
+                .addProductToCart("Sauce Labs Fleece Jacket")
+                .addProductToCart("Sauce Labs Onesie");
         sideBar.clickOnCart();
         cartPage.checkout();
         checkoutStep1Pom.setFirstName("Rohit").setLastName("Prasad").setPostalCode("700028").clickContinueShopping();
@@ -111,6 +115,7 @@ public class CheckoutTests extends BaseTest{
         double totalAmount = Double.parseDouble(checkoutStep2Pom.totalAmount().substring(checkoutStep2Pom.totalAmount().indexOf("$")+1));
         String ERPath = "C:\\Users\\pdroh\\IdeaProjects\\SauceDemoTest\\src\\test\\resources\\ER.xlsx";
         erfilling.enteringValuesInER(itemPrice, ERPath);
+        erfilling.makeERCopy(ERPath,"copy");
         double ERTaxAmount = erfilling.getTaxAmount();
         double ERTotalAmount = erfilling.getTotalAmount();
         LoggerLoad.info("ER Tax Amount " + String.valueOf(ERTaxAmount));

@@ -3,25 +3,19 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ERFilling {
-    private FileInputStream file;
-    private Workbook workbook;
-    private Sheet sheet;
+
     private double taxAmount;
     private double totalAmount;
 
     public void enteringValuesInER(double itemPrice, String filePath) throws IOException {
-        file = new FileInputStream(new File(filePath));
-        workbook = new XSSFWorkbook(file);
-        sheet = workbook.getSheet("Main Calculation");
-
+        FileInputStream file = new FileInputStream(new File(filePath));
+        Workbook workbook = new XSSFWorkbook(file);
+        Sheet sheet = workbook.getSheet("Main Calculation");
         sheet.getRow(1).getCell(1).setCellValue(itemPrice);
         XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 
@@ -41,5 +35,15 @@ public class ERFilling {
 
     public double getTotalAmount() {
         return totalAmount;
+    }
+    public void makeERCopy(String filePath, String name) throws IOException {
+        FileInputStream ER = new FileInputStream(new File(filePath));
+        Workbook ERWorkbook = new XSSFWorkbook(ER);
+
+        FileOutputStream copyER = new FileOutputStream(new File("C:\\Users\\pdroh\\IdeaProjects\\SauceDemoTest\\src\\test\\resources\\"+name+".xlsx"));
+        ERWorkbook.write(copyER);
+        copyER.close();
+        ERWorkbook.close();
+        ER.close();
     }
 }
