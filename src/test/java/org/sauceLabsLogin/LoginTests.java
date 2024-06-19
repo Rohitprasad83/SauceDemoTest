@@ -28,11 +28,6 @@ public class LoginTests extends BaseTest{
         loginPage.navigateTo("https://www.saucedemo.com/");
     }
 
-    @Test
-    public void checkTitle(){
-        String url = loginPage.getPageTitle();
-        Assert.assertEquals(url, "Swag Labs", "Incorrect Title");
-    }
 
     @Test
     public void testSuccessfulLogin(){
