@@ -1,4 +1,4 @@
-package org.sauceLabsLogin;
+package org.sauceLabsTests;
 
 import Pages.*;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +7,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import utilities.ConfigReader;
+import utilities.ERFilling;
 import utilities.LoggerLoad;
 
 public class BaseTest {
@@ -21,6 +22,7 @@ public class BaseTest {
     protected CheckoutStep2Pom checkoutStep2Pom;
     protected CheckoutCompletePom checkoutCompletePom;
     protected ConfigReader configReader;
+    protected ERFilling erfilling;
     @BeforeSuite
     public void setup() {
         LoggerLoad.info("Initializing ChromeDriver");
@@ -49,6 +51,7 @@ public class BaseTest {
         if(configReader== null){
             configReader = new ConfigReader();
         }
+        erfilling = new ERFilling();
     }
     @AfterSuite
     public void tearDown() {

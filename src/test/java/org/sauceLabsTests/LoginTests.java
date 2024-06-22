@@ -1,4 +1,4 @@
-package org.sauceLabsLogin;
+package org.sauceLabsTests;
 
 import java.lang.*;
 import org.testng.Assert;

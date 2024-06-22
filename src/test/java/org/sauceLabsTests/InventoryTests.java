@@ -1,4 +1,4 @@
-package org.sauceLabsLogin;
+package org.sauceLabsTests;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
@@ -8,10 +8,10 @@ import org.testng.annotations.*;
 public class InventoryTests extends BaseTest {
     @BeforeMethod
     public void navigateToProductsPage() {
-        driver.get("https://www.saucedemo.com/");
-        loginPage.setUserName("standard_user")
-                .setPassword("secret_sauce")
-                .clickSubmit();
+        loginPage.navigateTo(configReader.getUrl());
+        String username = configReader.getUsername();
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
     }
 
     @Test(priority = 1)

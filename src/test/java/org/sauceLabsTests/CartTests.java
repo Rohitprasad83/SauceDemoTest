@@ -1,4 +1,4 @@
-package org.sauceLabsLogin;
+package org.sauceLabsTests;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -8,13 +8,13 @@ import org.testng.annotations.Test;
 public class CartTests extends BaseTest {
     @BeforeMethod
     public void navigateToProductsPage() {
-        driver.get("https://www.saucedemo.com/");
-        loginPage.setUserName("standard_user")
-                .setPassword("secret_sauce")
-                .clickSubmit();
+        loginPage.navigateTo(configReader.getUrl());
+        String username = configReader.getUsername();
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
     }
     @Test
-    public void removeProductFromCart() throws InterruptedException {
+    public void removeProductFromCart() {
         String productName = "Sauce Labs Bike Light";
         inventoryPage.addProductToCart(productName);
         sideBar.clickOnCart();
@@ -22,7 +22,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test(priority = 1)
-    public void removeAllProductsFromCart() throws InterruptedException {
+    public void removeAllProductsFromCart() {
         inventoryPage.addProductToCart("Sauce Labs Backpack")
                 .addProductToCart("Sauce Labs Bike Light")
                 .addProductToCart("Sauce Labs Bolt T-Shirt")
@@ -50,6 +50,6 @@ public class CartTests extends BaseTest {
 
     @AfterMethod
     public void logout(){
-        sideBar.openSidebar().logout();
+        sideBar.openSidebar().resetApp().logout();
     }
 }

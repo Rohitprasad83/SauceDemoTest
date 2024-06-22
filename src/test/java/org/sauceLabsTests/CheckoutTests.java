@@ -1,26 +1,20 @@
-package org.sauceLabsLogin;
+package org.sauceLabsTests;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import utilities.ERFilling;
 import utilities.LoggerLoad;
 
 import java.io.IOException;
 
 public class CheckoutTests extends BaseTest{
-    private ERFilling erfilling;
-    @BeforeClass
-    public void setupER(){
-        erfilling = new ERFilling();
-    }
-
     @BeforeMethod
     public void visitPage(){
-        loginPage.navigateTo("https://www.saucedemo.com/");
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.navigateTo(configReader.getUrl());
+        String username = configReader.getUsername();
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
     }
 
     @Test
@@ -80,7 +74,7 @@ public class CheckoutTests extends BaseTest{
     }
 
     @Test
-    public void E2ETest() throws IOException, InterruptedException {
+    public void E2ETest() throws IOException {
         inventoryPage.addProductToCart("Sauce Labs Backpack")
                 .addProductToCart("Sauce Labs Bike Light")
                 .addProductToCart("Sauce Labs Bolt T-Shirt")
@@ -98,10 +92,10 @@ public class CheckoutTests extends BaseTest{
         erfilling.makeERCopy(ERPath,"copy");
         double ERTaxAmount = erfilling.getTaxAmount();
         double ERTotalAmount = erfilling.getTotalAmount();
-        LoggerLoad.info("ER Tax Amount " + String.valueOf(ERTaxAmount));
+        LoggerLoad.info("ER Tax Amount " + ERTaxAmount);
         Assert.assertEquals(taxAmount, ERTaxAmount);
 
-        LoggerLoad.info("ER Total Amount " + String.valueOf(ERTotalAmount));
+        LoggerLoad.info("ER Total Amount " + ERTotalAmount);
         Assert.assertEquals(totalAmount, ERTotalAmount);
 
         checkoutStep2Pom.clickFinishShopping();
