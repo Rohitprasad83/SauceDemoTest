@@ -1,28 +1,11 @@
 package org.sauceLabsLogin;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import Pages.LoginPage;
-import Pages.SideBar;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import utilities.DataProviderUtils;
-import utilities.ExcelReader;
-import utilities.LoggerLoad;
 
 public class LoginTests extends BaseTest{
-    private LoginPage loginPage;
-    private SideBar sideBar;
-    @BeforeClass
-    public void initializingPages(){
-        loginPage = new LoginPage(driver);
-        sideBar = new SideBar(driver);
-    }
-
     @BeforeMethod
     public void visitPage(){
         loginPage.navigateTo("https://www.saucedemo.com/");

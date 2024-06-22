@@ -1,6 +1,5 @@
 package org.sauceLabsLogin;
 
-import Pages.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -12,28 +11,9 @@ import utilities.LoggerLoad;
 import java.io.IOException;
 
 public class CheckoutTests extends BaseTest{
-    private InventoryPage inventoryPage;
-    private LoginPage loginPage;
-
-    private CartPage cartPage;
-    private SideBar sideBar;
-
-    private CheckoutStep1Pom checkoutStep1Pom;
-
-    private CheckoutStep2Pom checkoutStep2Pom;
     private ERFilling erfilling;
-
-    private CheckoutCompletePom checkoutCompletePom;
-
     @BeforeClass
-    public void initializingPages(){
-        loginPage = new LoginPage(driver);
-        inventoryPage = new InventoryPage(driver);
-        cartPage = new CartPage(driver);
-        sideBar = new SideBar(driver);
-        checkoutStep1Pom = new CheckoutStep1Pom(driver);
-        checkoutStep2Pom = new CheckoutStep2Pom(driver);
-        checkoutCompletePom = new CheckoutCompletePom(driver);
+    public void setupER(){
         erfilling = new ERFilling();
     }
 

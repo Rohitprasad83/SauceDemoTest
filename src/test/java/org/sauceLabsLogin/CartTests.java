@@ -1,30 +1,13 @@
 package org.sauceLabsLogin;
 
-import Pages.InventoryPage;
-import Pages.LoginPage;
-import Pages.SideBar;
-import Pages.CartPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class CartTests extends BaseTest {
-    private InventoryPage inventoryPage;
-    private LoginPage loginPage;
-    private CartPage cartPage;
-    private SideBar sideBar;
-    @BeforeClass
-    public void initializingPages(){
-        loginPage = new LoginPage(driver);
-        inventoryPage = new InventoryPage(driver);
-        cartPage = new CartPage(driver);
-        sideBar = new SideBar(driver);
-    }
-
     @BeforeMethod
-    public void navigateToProductsPage() throws InterruptedException {
+    public void navigateToProductsPage() {
         driver.get("https://www.saucedemo.com/");
         loginPage.setUserName("standard_user")
                 .setPassword("secret_sauce")

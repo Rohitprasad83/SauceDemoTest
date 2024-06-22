@@ -1,28 +1,11 @@
 package org.sauceLabsLogin;
 
-import Pages.InventoryPage;
-import Pages.LoginPage;
-import Pages.SideBar;
-import Pages.ProductPage;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 
 public class InventoryTests extends BaseTest {
-    private InventoryPage inventoryPage;
-    private LoginPage loginPage;
-    private SideBar sideBar;
-    private ProductPage productPage;
-
-    @BeforeClass
-    public void initializingPages(){
-        loginPage = new LoginPage(driver);
-        inventoryPage = new InventoryPage(driver);
-        sideBar = new SideBar(driver);
-        productPage = new ProductPage(driver);
-    }
-
     @BeforeMethod
     public void navigateToProductsPage() {
         driver.get("https://www.saucedemo.com/");
