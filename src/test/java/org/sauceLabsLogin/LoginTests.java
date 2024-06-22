@@ -8,26 +8,24 @@ import utilities.DataProviderUtils;
 public class LoginTests extends BaseTest{
     @BeforeMethod
     public void visitPage(){
-        loginPage.navigateTo("https://www.saucedemo.com/");
+        loginPage.navigateTo(configReader.getUrl());
     }
-
-
     @Test
     public void testSuccessfulLogin(){
-
-        loginPage.setUserName("standard_user")
-                .setPassword("secret_sauce")
-                .clickSubmit();
+        String username = configReader.getUsername();
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
 
         String url = driver.getCurrentUrl();
         Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");
+        sideBar.openSidebar().resetApp().logout();
     }
 
     @Test
     public void unsuccessfulLoginIncorrectPassword() throws InterruptedException {
-        loginPage.setUserName("standard_user")
-                .setPassword("1234")
-                .clickSubmit();
+        String username = configReader.getUsername();
+        String password = "12345";
+        loginPage.login(username, password);
 
         String errorMessage = loginPage.loginError();
         Assert.assertEquals(errorMessage, "Epic sadface: Username and password do not match any user in this service");
@@ -35,18 +33,18 @@ public class LoginTests extends BaseTest{
 
     @Test
     public void unsuccessfulLoginIncorrectUsername() throws InterruptedException {
-        loginPage.setUserName("abcasmf")
-                .setPassword("secret_sauce")
-                .clickSubmit();
+        String username = "username";
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
 
         String errorMessage = loginPage.loginError();
         Assert.assertEquals(errorMessage, "Epic sadface: Username and password do not match any user in this service");
     }
     @Test
     public void unsuccessfulLoginIncorrectUsernameAndPassword() throws InterruptedException {
-        loginPage.setUserName("abcasmf")
-                .setPassword("1234")
-                .clickSubmit();
+        String username = "username";
+        String password = "12345";
+        loginPage.login(username, password);
 
         String errorMessage = loginPage.loginError();
         Assert.assertEquals(errorMessage, "Epic sadface: Username and password do not match any user in this service");
@@ -54,9 +52,9 @@ public class LoginTests extends BaseTest{
 
     @Test
     public void unsuccessfulLoginOnBlankUsername() throws InterruptedException {
-        loginPage.setUserName("")
-                .setPassword("1234")
-                .clickSubmit();
+        String username = "";
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
 
         String errorMessage = loginPage.loginError();
         Assert.assertEquals(errorMessage, "Epic sadface: Username is required");
@@ -64,9 +62,9 @@ public class LoginTests extends BaseTest{
 
     @Test
     public void unsuccessfulLoginOnBlankPassword() throws InterruptedException {
-        loginPage.setUserName("standard_user")
-                .setPassword("")
-                .clickSubmit();
+        String username = configReader.getUsername();
+        String password = "";
+        loginPage.login(username, password);
 
         String errorMessage = loginPage.loginError();
         Assert.assertEquals(errorMessage, "Epic sadface: Password is required");
@@ -74,9 +72,9 @@ public class LoginTests extends BaseTest{
 
     @Test
     public void lockedOutUserLogin() throws InterruptedException {
-        loginPage.setUserName("locked_out_user")
-                .setPassword("secret_sauce")
-                .clickSubmit();
+        String username = "locked_out_user";
+        String password = "secret_sauce";
+        loginPage.login(username, password);
 
         String errorMessage = loginPage.loginError();
         Assert.assertEquals(errorMessage, "Epic sadface: Sorry, this user has been locked out.");
@@ -90,7 +88,7 @@ public class LoginTests extends BaseTest{
             Assert.assertEquals(loginPage.loginError(), expectedResults);
         } else {
             Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
-            sideBar.openSidebar().logout();
+            sideBar.openSidebar().resetApp().logout();
         }
     }
 }
