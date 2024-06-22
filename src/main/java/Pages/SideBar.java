@@ -28,6 +28,14 @@ public class SideBar extends BasePage {
 
     @FindBy(xpath = "//*[@data-test='shopping-cart-badge']")
     private WebElement cartItemsCount;
+
+    @FindBy(linkText = "Twitter")
+    private WebElement twitterLink;
+
+    @FindBy(linkText = "Facebook")
+    private WebElement facebookLink;
+    @FindBy(linkText = "LinkedIn")
+    private WebElement linkedinLink;
     public SideBar(WebDriver driver){
         super(driver);
     }
@@ -68,6 +76,36 @@ public class SideBar extends BasePage {
     public SideBar clickOnCart(){
         waitForElementToBeClickable(cartBtn);
         cartBtn.click();
+        return this;
+    }
+
+    public Boolean twiiterDisplayed(){
+        return twitterLink.isDisplayed();
+    }
+
+    public Boolean facebookDisplayed(){
+        return facebookLink.isDisplayed();
+    }
+
+    public Boolean linkedinDisplayed(){
+        return linkedinLink.isDisplayed();
+    }
+
+    public SideBar clickTwitterFooter(){
+        waitForElementToBeVisible(twitterLink);
+        twitterLink.click();
+        return this;
+    }
+
+    public SideBar clickFacebookFooter(){
+        waitForElementToBeVisible(facebookLink);
+        facebookLink.click();
+        return this;
+    }
+
+    public SideBar clickLinkedInFooter(){
+        waitForElementToBeVisible(linkedinLink);
+        linkedinLink.click();
         return this;
     }
 
