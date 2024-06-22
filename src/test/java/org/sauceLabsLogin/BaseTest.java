@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import utilities.ConfigReader;
 import utilities.LoggerLoad;
 
 public class BaseTest {
@@ -19,11 +20,21 @@ public class BaseTest {
     protected CheckoutStep1Pom checkoutStep1Pom;
     protected CheckoutStep2Pom checkoutStep2Pom;
     protected CheckoutCompletePom checkoutCompletePom;
+    protected ConfigReader configReader;
     @BeforeSuite
     public void setup() {
         LoggerLoad.info("Initializing ChromeDriver");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        configReader = new ConfigReader();
+        String browser = configReader.getBrowser();
+
+        if(browser.equalsIgnoreCase("chrome")){
+            driver = new ChromeDriver();
+            driver.manage().window().maximize();
+        }
+        else {
+            System.out.println("browser");
+        }
+
     }
     @BeforeClass
     public void initializePages(){
@@ -35,6 +46,9 @@ public class BaseTest {
         checkoutStep1Pom = new CheckoutStep1Pom(driver);
         checkoutStep2Pom = new CheckoutStep2Pom(driver);
         checkoutCompletePom = new CheckoutCompletePom(driver);
+        if(configReader== null){
+            configReader = new ConfigReader();
+        }
     }
     @AfterSuite
     public void tearDown() {
