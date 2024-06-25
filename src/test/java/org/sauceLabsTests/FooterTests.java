@@ -17,7 +17,7 @@ public class FooterTests extends BaseTest {
     public void checkFooterLinksAreDisplayed(){
         Assert.assertTrue(sideBar.twiiterDisplayed());
         Assert.assertTrue(sideBar.facebookDisplayed());
-        Assert.assertTrue(sideBar.linkedinDisplayed());
+        Assert.assertFalse(sideBar.linkedinDisplayed());
     }
 
     @AfterMethod

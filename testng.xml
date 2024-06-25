@@ -1,12 +1,20 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="MyTestSuite">
-    <test name="LoginTest">
-        <classes>
-            <class name="org.sauceLabsLogin.LoginTests"/>
-            <class name="org.sauceLabsLogin.InventoryTests"/>
-            <class name="org.sauceLabsLogin.CartTests" />
-            <class name="org.sauceLabsLogin.ProductTests" />
-            <class name="org.sauceLabsLogin.CheckoutTests" />
-        </classes>
+    <listeners>
+        <listener class-name="utilities.Listeners"/>
+    </listeners>
+    <test name="sauceLabsTests">
+<!--        <classes>-->
+<!--            <class name="org.sauceLabsTests.BaseTest"/>-->
+<!--            <class name="org.sauceLabsTests.LoginTests"/>-->
+<!--            <class name="org.sauceLabsTests.InventoryTests"/>-->
+<!--            <class name="org.sauceLabsTests.CartTests" />-->
+<!--            <class name="org.sauceLabsTests.ProductTests" />-->
+<!--            <class name="org.sauceLabsTests.CheckoutTests" />-->
+<!--            <class name="org.sauceLabsTests.FooterTests" />-->
+<!--        </classes>-->
+        <packages>
+            <package name="org.sauceLabsTests.*" />
+        </packages>
     </test>
 </suite>
