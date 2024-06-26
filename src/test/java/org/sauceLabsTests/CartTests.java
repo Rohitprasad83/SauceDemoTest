@@ -1,37 +1,20 @@
-package org.sauceLabsLogin;
+package org.sauceLabsTests;
 
-import Pages.InventoryPage;
-import Pages.LoginPage;
-import Pages.SideBar;
-import Pages.CartPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class CartTests extends BaseTest {
-    private InventoryPage inventoryPage;
-    private LoginPage loginPage;
-    private CartPage cartPage;
-    private SideBar sideBar;
-    @BeforeClass
-    public void initializingPages(){
-        loginPage = new LoginPage(driver);
-        inventoryPage = new InventoryPage(driver);
-        cartPage = new CartPage(driver);
-        sideBar = new SideBar(driver);
-    }
-
     @BeforeMethod
-    public void navigateToProductsPage() throws InterruptedException {
-        driver.get("https://www.saucedemo.com/");
-        loginPage.setUserName("standard_user")
-                .setPassword("secret_sauce")
-                .clickSubmit();
+    public void navigateToProductsPage() {
+        loginPage.navigateTo(configReader.getUrl());
+        String username = configReader.getUsername();
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
     }
     @Test
-    public void removeProductFromCart() throws InterruptedException {
+    public void removeProductFromCart() {
         String productName = "Sauce Labs Bike Light";
         inventoryPage.addProductToCart(productName);
         sideBar.clickOnCart();
@@ -39,7 +22,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test(priority = 1)
-    public void removeAllProductsFromCart() throws InterruptedException {
+    public void removeAllProductsFromCart() {
         inventoryPage.addProductToCart("Sauce Labs Backpack")
                 .addProductToCart("Sauce Labs Bike Light")
                 .addProductToCart("Sauce Labs Bolt T-Shirt")
@@ -67,6 +50,6 @@ public class CartTests extends BaseTest {
 
     @AfterMethod
     public void logout(){
-        sideBar.openSidebar().logout();
+        sideBar.openSidebar().resetApp().logout();
     }
 }

@@ -1,32 +1,17 @@
-package org.sauceLabsLogin;
+package org.sauceLabsTests;
 
-import Pages.*;
-import junit.framework.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.annotations.*;
 import utilities.DataProviderUtils;
 
 public class ProductTests extends BaseTest {
-    private LoginPage loginPage;
-    private ProductPage productPage;
-
-    private InventoryPage inventoryPage;
-
-    private SideBar sideBar;
-    @BeforeClass
-    public void initializingPages(){
-        loginPage = new LoginPage(driver);
-        productPage = new ProductPage(driver);
-        inventoryPage = new InventoryPage(driver);
-        sideBar = new SideBar(driver);
-    }
-
     @BeforeMethod
-    public void navigateToProductsPage() throws InterruptedException {
-        driver.get("https://www.saucedemo.com/");
-        loginPage.setUserName("standard_user")
-                .setPassword("secret_sauce")
-                .clickSubmit();
+    public void navigateToProductsPage() {
+        loginPage.navigateTo(configReader.getUrl());
+        String username = configReader.getUsername();
+        String password = configReader.getPassword();
+        loginPage.login(username, password);
     }
 
     @Test
